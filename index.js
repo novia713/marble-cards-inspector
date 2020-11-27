@@ -32,6 +32,7 @@ client.on('message', msg => {
 
     let current_timestamp = Math.floor(Date.now() / 1000);
     let user_ID = msg.author.id;
+    var message_channel = msg.channel.type;
     let message_content = msg.content;
     let user_bot = msg.author.bot;
 
@@ -48,15 +49,13 @@ client.on('message', msg => {
 
     // Anti spam
     if(cooldown_times[user_ID] > (current_timestamp-config.bot.anti_spam_time) && cooldown_times[user_ID] !== undefined){
-        msg.reply(config.messages.anti_spam+' '+config.bot.anti_spam_time+' '+config.messages.anti_spam_2).catch(function(e) {
-            functions.functions_error(msg,e);
-        });
+        functions.function_reply(msg,'normal',message_channel,config.messages.anti_spam+' '+config.bot.anti_spam_time+' '+config.messages.anti_spam_2);
         return;
     }
     cooldown_times[user_ID] = current_timestamp;
 
     // Fire command
-    commands.fire_command(msg,message_content);
+    commands.fire_command(msg,message_content,message_channel);
 
 });
 

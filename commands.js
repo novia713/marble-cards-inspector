@@ -8,7 +8,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
 
     // command_help
-    command_help: async function(msg) {
+    command_help: async function(msg,message_channel) {
         let valid_commands = "";
         // Add commands for manager
         Object.keys(config.commands).forEach(function(k){
@@ -20,9 +20,7 @@ module.exports = {
         // Build embed
         const embed = new MessageEmbed().setTitle(config.messages.bot_commands.toUpperCase()).setColor(0xFFFFFF).setDescription(valid_commands);
         // Send commands
-        msg.channel.send(embed).catch(function(e) {
-            functions.functions_error(msg,e);
-        });
+        functions.function_reply(msg,'embed',message_channel,embed);
         return;
     },
 
@@ -36,41 +34,35 @@ module.exports = {
             }else{
                 result_message = config.messages.marbled_url + ' `' + message_content[1] + '` ' + config.messages.marbled_url_2;
             }
-            msg.reply(result_message).catch(function(e) {
-                functions.functions_error(msg,e);
-            });
+            functions.function_reply(msg,'normal',message_channel,result_message);
         }
         return;
     },
 
     // command_donate
     command_donate: async function(msg) {
-        msg.reply(config.messages.donate).catch(function(e) {
-            functions.functions_error(msg,e);
-        });
+        functions.function_reply(msg,'normal',message_channel,config.messages.donate);
         return; 
     },
 
     // Commands
-    fire_command: async function(msg,message_content){
+    fire_command: async function(msg,message_content,message_channel){
 
         switch(message_content[0].substr(1)) {
             case "h":
             case "help":
-                this.command_help(msg);
+                this.command_help(msg,message_channel);
                 return;
             case "c":
             case "check":
-                this.command_check(msg,message_content);
+                this.command_check(msg,message_channel,message_content);
                 return;
             case "d":
             case "donate":
-                this.command_donate(msg);
+                this.command_donate(msg,message_channel);
                 return;
             default:
-                msg.reply(config.messages.not_valid).catch(function(e) {
-                    functions.functions_error(msg,e);
-                });
+                functions.function_reply(msg,'normal',message_channel,config.messages.not_valid);
                 return; 
         }
 

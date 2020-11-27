@@ -6,6 +6,16 @@ const axios = require('axios');
 
 module.exports = {
 
+    // Reply message/embed
+    function_reply: async function(msg,message_type,message_channel,reply_message){
+        if(message_type == 'normal' && message_channel == 'dm'){
+            reply_message = reply_message.charAt(0).toUpperCase() + string.slice(1);
+        }
+        msg.channel.send(reply_message).catch(function(e) {
+            functions.functions_error(msg,e);
+        });
+    },
+
     // Request api
     functions_request_url: async function(msg,url){
         try {
@@ -15,7 +25,7 @@ module.exports = {
             return request_reply.data;
         } catch (error) {
             if(error.response.status == 500){
-                msg.reply(config.messages.no_valid_url).catch(function(e) {});
+                this.function_reply(msg,'normal',config.messages.no_valid_url);
                 return;
             }
             this.functions_error(msg,error);
