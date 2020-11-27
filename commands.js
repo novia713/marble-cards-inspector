@@ -25,7 +25,7 @@ module.exports = {
     },
 
     // command_check
-    command_check: async function(msg,message_content) {
+    command_check: async function(msg,message_channel,message_content) {
         const request_reply = await functions.functions_request_url(msg,message_content[1]);
         if(request_reply){
             let result_message;
@@ -40,7 +40,7 @@ module.exports = {
     },
 
     // command_donate
-    command_donate: async function(msg) {
+    command_donate: async function(msg,message_channel) {
         functions.function_reply(msg,'normal',message_channel,config.messages.donate);
         return; 
     },

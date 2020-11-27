@@ -12,7 +12,7 @@ module.exports = {
             reply_message = reply_message.charAt(0).toUpperCase() + string.slice(1);
         }
         msg.channel.send(reply_message).catch(function(e) {
-            functions.functions_error(msg,e);
+            this.functions_error(msg,e);
         });
     },
 
