@@ -26,7 +26,7 @@ module.exports = {
 
     // command_check
     command_check: async function(msg,message_channel,message_content) {
-        const request_reply = await functions.functions_request_url(msg,message_content[1]);
+        const request_reply = await functions.functions_request_url(msg,message_channel,message_content[1]);
         if(request_reply){
             let result_message;
             if(request_reply.result.is_valid){
