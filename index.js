@@ -44,7 +44,7 @@ client.on('message', msg => {
     let anti_scam = config.anti_scam;
     let message_scam = message_content.toLowerCase();
     if (anti_scam.some(v => message_scam.includes(v))) {
-        msg.delete();
+        msg.delete(1000);
     }
 
     // Check if the message is a command and uses the correct prefix
