@@ -9,6 +9,7 @@ module.exports = {
         c: ".check <url> # Check an URL for MarbleCards.",
         donate: ".donate # Bot creator donation info."
     },
+    anti_scam: ["uniswap is","uniswap is doing","uniswap airdrop"], // ALL LOWERCASE! -> If a record has one of the specified contents, the message is deleted by the bot.
     messages: {
         status: "Commands: .help",
         error: "please contact the bot developer. The command has triggered an error:",
