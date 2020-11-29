@@ -40,6 +40,13 @@ client.on('message', msg => {
     if(user_bot) 
         return;
 
+    // Anti scam (delete messages)
+    let anti_scam = config.anti_scam;
+    let message_scam = message_content.toLowerCase();
+    if (anti_scam.some(v => message_scam.includes(v))) {
+        msg.delete();
+    }
+
     // Check if the message is a command and uses the correct prefix
     if(message_content.charAt(0) != config.bot.prefix)
         return;    
