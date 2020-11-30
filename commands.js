@@ -37,7 +37,7 @@ module.exports = {
                 if(not_valid_message == 'ALREADY_CREATED'){
                     let card_url = '';
                     if(request_reply.result.additional_data.nft_id){
-                        card_url =  ' -> https://marble.cards/card/'+card_idrequest_reply.result.additional_data.nft_id;
+                        card_url =  ' -> https://marble.cards/card/'+request_reply.result.additional_data.nft_id;
                     }
                     result_message = config.messages.marbled_url + ' `' + message_content[1] + '` ' + config.messages.marbled_url_2 + card_url;
                 }
