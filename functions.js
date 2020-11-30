@@ -37,7 +37,7 @@ module.exports = {
             return request_reply.data;
         } catch (error) {
             if(error.response.status == 500){
-                this.function_reply(msg,'normal',message_channel,config.messages.no_valid_url);
+                this.function_reply(msg,'normal',message_channel,config.messages.api_down);
                 return;
             }
             this.functions_error(msg,error);

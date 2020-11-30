@@ -28,11 +28,19 @@ module.exports = {
     command_check: async function(msg,message_channel,message_content) {
         const request_reply = await functions.functions_request_url(msg,message_channel,message_content[1]);
         if(request_reply){
-            let result_message;
+            // Can be marbled
             if(request_reply.result.is_valid){
                 result_message = config.messages.not_marbled_url + ' `' + message_content[1] + '` ' + config.messages.not_marbled_url_2;
             }else{
-                result_message = config.messages.marbled_url + ' `' + message_content[1] + '` ' + config.messages.marbled_url_2;
+                let not_valid_message = request_reply.result.msg;
+                // Already marbled
+                if(not_valid_message == 'ALREADY_CREATED'){
+                    result_message = config.messages.marbled_url + ' `' + message_content[1] + '` ' + config.messages.marbled_url_2;
+                }
+                // Domain not allowed
+                if(not_valid_message == 'DOMAIN_NOT_ALLOWED_FOR_MARBLING'){
+                    result_message = config.messages.not_allowed + ' `' + message_content[1] + '` ' + config.messages.not_allowed_2;
+                }
             }
             functions.function_reply(msg,'normal',message_channel,result_message);
         }
