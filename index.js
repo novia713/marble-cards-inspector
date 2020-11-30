@@ -49,7 +49,7 @@ client.on('message', msg => {
 
     // Check if the message is a command and uses the correct prefix
     if(message_content.charAt(0) != config.bot.prefix)
-        return;    
+        return;   
 
     // Remove double spaces and make command lowercase in case the user used uppercase letters
     message_content = message_content.toLowerCase().split(/ +/);
