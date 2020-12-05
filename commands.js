@@ -57,6 +57,12 @@ module.exports = {
         return; 
     },
 
+    // command_wiki
+    command_wiki: async function(msg,message_channel) {
+        functions.function_reply(msg,'normal',message_channel,config.messages.wiki);
+        return; 
+    },
+
     // Commands
     fire_command: async function(msg,message_content,message_channel){
 
@@ -64,6 +70,10 @@ module.exports = {
             case "h":
             case "help":
                 this.command_help(msg,message_channel);
+                return;
+            case "w":
+            case "wiki"
+                this.command_wiki(msg,message_channel)
                 return;
             case "c":
             case "check":
