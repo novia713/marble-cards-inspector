@@ -1,29 +1,25 @@
 // Load files
 const config = require('./config');
-const functions = require("./functions");
 
 // Load modules
 const axios = require('axios');
 
 module.exports = {
 
-    // Error handler
-    functions_error: function(msg,e) {
-        msg.reply(config.messages.error+' '+e.message).catch(function(e) {});
-        console.log(e.message);
-        return;
-    },
-
     // Reply message/embed
     function_reply: async function(msg,message_type,message_channel,reply_message){
         if(message_type == 'normal' && message_channel == 'dm'){
             reply_message = reply_message.charAt(0).toUpperCase() + reply_message.slice(1);
             msg.channel.send(reply_message).catch(function(e) {
-                this.functions_error(msg,e);
+                msg.reply(config.messages.error+' '+e.message).catch(function(e) {});
+                console.log(e.message);
+                return;
             });
         }else{
             msg.reply(reply_message).catch(function(e){
-                this.functions_error(msg,e);
+                msg.reply(config.messages.error+' '+e.message).catch(function(e) {});
+                console.log(e.message);
+                return;
             });
         }
     },
@@ -40,7 +36,8 @@ module.exports = {
                 this.function_reply(msg,'normal',message_channel,config.messages.api_down);
                 return;
             }
-            this.functions_error(msg,error);
+            msg.reply(config.messages.error+' '+error.message).catch(function(e) {});
+            console.log(error.message);
             return;
         }
         return;
