@@ -72,7 +72,7 @@ module.exports = {
                 this.command_help(msg,message_channel);
                 return;
             case "w":
-            case "wiki"
+            case "wiki":
                 this.command_wiki(msg,message_channel)
                 return;
             case "c":
