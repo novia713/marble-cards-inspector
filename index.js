@@ -45,6 +45,15 @@ client.on('message', msg => {
     let message_scam = message_content.toLowerCase();
     if (anti_scam.some(v => message_scam.includes(v))) {
         msg.delete();
+        try {
+            var ban_user = msg.guild.members.cache.find(user => user.id === user_ID)
+            ban_user.ban({days:7,reason:"SCAM!"}).then(function(user) {
+                functions.function_reply(msg,'normal',message_channel,config.messages.banned);
+            });
+        } catch (e) {
+            console.log(e);
+        }
+        return;
     }
 
     // Check if the message is a command and uses the correct prefix
