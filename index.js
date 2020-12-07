@@ -40,7 +40,7 @@ client.on('message', msg => {
     if(user_bot) 
         return;
 
-    // Anti scam (delete messages)
+    // Anti scam (delete messages and user ban)
     let anti_scam = config.anti_scam;
     let message_scam = message_content.toLowerCase();
     if (anti_scam.some(v => message_scam.includes(v))) {
@@ -48,7 +48,8 @@ client.on('message', msg => {
         try {
             var ban_user = msg.guild.members.cache.find(user => user.id === user_ID)
             ban_user.ban({days:7,reason:"SCAM!"}).then(function(user) {
-                functions.function_reply(msg,'normal',message_channel,config.messages.banned);
+                //functions.function_reply(msg,'normal',message_channel,config.messages.banned);
+                console.log('User banned!');
             });
         } catch (e) {
             console.log(e);
