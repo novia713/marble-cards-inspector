@@ -35,7 +35,7 @@ client.on('message', msg => {
     var message_channel = msg.channel.type;
     let message_content = msg.content;
     let user_bot = msg.author.bot;
-
+    var channel_ID = msg.channel.id;
     // Ignor if message comes from a bot
     if(user_bot) 
         return;
@@ -46,10 +46,16 @@ client.on('message', msg => {
     if (anti_scam.some(v => message_scam.includes(v))) {
         msg.delete();
         try {
-            var ban_user = msg.guild.members.cache.find(user => user.id === user_ID)
+            var ban_user = msg.guild.members.cache.find(user => user.id === user_ID);
             ban_user.ban({days:7,reason:"SCAM!"}).then(function(user) {
                 //functions.function_reply(msg,'normal',message_channel,config.messages.banned);
                 console.log('User banned!');
+                // Delete other bot start message that was for the banned
+                msg.channel.messages.fetch({limit: 10}).then(collected => { //collected is a Collection
+                    collected.forEach(msg => {
+                        if (msg.content.startsWith("Welcome")) msg.delete();
+                    });
+                });
             });
         } catch (e) {
             console.log(e);
