@@ -24,11 +24,30 @@ module.exports = {
         }
     },
 
-    // Request api
+    // Request card marble api
     functions_request_url: async function(msg,message_channel,url){
         try {
             let request_reply = await axios.post('https://ws.marble.cards/task/page/check_page_task', {
                 url: url
+            });
+            return request_reply.data;
+        } catch (error) {
+            if(error.response.status == 500){
+                this.function_reply(msg,'normal',message_channel,config.messages.api_down);
+                return;
+            }
+            msg.reply(config.messages.error+' '+error.message).catch(function(e) {});
+            console.log(error.message);
+            return;
+        }
+        return;
+    },
+
+    // Request market api
+    functions_request_market: async function(msg,message_channel){
+        try {
+            let request_reply = await axios.post('https://ws.marble.cards/task/card_index/get_cards_task', {
+                ascending: false
             });
             return request_reply.data;
         } catch (error) {

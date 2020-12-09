@@ -63,6 +63,20 @@ module.exports = {
         return; 
     },
 
+    // command_random
+    command_random: async function(msg,message_channel) {
+        const request_reply = await functions.functions_request_market(msg,message_channel);
+        if(request_reply){
+            if(request_reply.cards[0]){
+                if(request_reply.cards[0].nft_id){
+                    let random_card_number = Math.floor(Math.random() * (request_reply.cards[0].nft_id - 1 + 1) + 1);
+                    functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+random_card_number);
+                }
+            }
+        }
+        return; 
+    },
+
     // Commands
     fire_command: async function(msg,message_content,message_channel){
 
@@ -82,6 +96,10 @@ module.exports = {
             case "d":
             case "donate":
                 this.command_donate(msg,message_channel);
+                return;
+            case "r":
+            case "random":
+                this.command_random(msg,message_channel);
                 return;
             default:
                 functions.function_reply(msg,'normal',message_channel,config.messages.not_valid);
