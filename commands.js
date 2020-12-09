@@ -77,6 +77,33 @@ module.exports = {
         return; 
     },
 
+        // command_card
+        command_card: async function(msg,message_channel,message_content) {
+            const request_reply = await functions.functions_request_market(msg,message_channel);
+            if(request_reply){
+                let max_number = request_reply.cards[0].nft_id;
+            }else{
+                return;
+            }
+            const request_number = message_content[1];
+            // Check if integer
+            if(!Number.isInteger(request_number)){
+                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_not_valid);
+                return;
+            }
+            // Check smaller as min and bigger as max card number
+            if(request_number < 1){
+                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_low);
+                return;
+            }
+            if(request_number > max_number){
+                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_high+ ' ' + max_number + config.messages.card_number_to_high_2);
+                return;
+            }
+            functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
+            return; 
+        },
+
     // Commands
     fire_command: async function(msg,message_content,message_channel){
 
@@ -100,6 +127,9 @@ module.exports = {
             case "r":
             case "random":
                 this.command_random(msg,message_channel);
+                return;
+            case "card":
+                this.command_card(msg,message_channel,message_content);
                 return;
             default:
                 functions.function_reply(msg,'normal',message_channel,config.messages.not_valid);
