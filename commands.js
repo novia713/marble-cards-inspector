@@ -70,7 +70,8 @@ module.exports = {
             if(request_reply.cards[0]){
                 if(request_reply.cards[0].nft_id){
                     let random_card_number = Math.floor(Math.random() * (request_reply.cards[0].nft_id - 1 + 1) + 1);
-                    functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+random_card_number);
+                    //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+random_card_number);
+                    msg.channel.send('https://marble.cards/card/'+random_card_number)
                 }
             }
         }
@@ -80,14 +81,16 @@ module.exports = {
         // command_card
         command_card: async function(msg,message_channel,message_content) {
             const request_reply = await functions.functions_request_market(msg,message_channel);
+            let max_number = 0;
             if(request_reply){
-                let max_number = request_reply.cards[0].nft_id;
+                max_number = request_reply.cards[0].nft_id;
             }else{
                 return;
             }
+            console.log(message_content[1]);
             const request_number = message_content[1];
             // Check if integer
-            if(!Number.isInteger(request_number)){
+            if (!(request_number+"").match(/^\d+$/) ) {
                 functions.function_reply(msg,'normal',message_channel,config.messages.card_number_not_valid);
                 return;
             }
@@ -100,7 +103,8 @@ module.exports = {
                 functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_high+ ' ' + max_number + config.messages.card_number_to_high_2);
                 return;
             }
-            functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
+            //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
+            msg.channel.send('https://marble.cards/card/'+request_number)
             return; 
         },
 
