@@ -10,6 +10,7 @@ module.exports = {
         wiki: ".wiki # MarbleCards Wiki.",
         random: ".random # Post a random MarbleCard.",
         card: ".card <number># Display MarbleCard by number.",
+        search: ".search <phrase># Find a random MarbleCard that has the search phrase in the title.",
         donate: ".donate # Bot creator donation info."
     },
     anti_scam: ["uniswap is","uniswap is doing","uniswap airdrop"], // ALL LOWERCASE! -> If a record has one of the specified contents, the message is deleted by the bot.

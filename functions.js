@@ -49,7 +49,7 @@ module.exports = {
         if(phrase){
             requestHeaders.search = {title: phrase};
             requestHeaders.page = page;
-            requestHeaders.limit = 16;
+            requestHeaders.limit = 100;
         }
         try {
             // normal to get latest card it
