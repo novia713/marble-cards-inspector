@@ -87,7 +87,6 @@ module.exports = {
         }else{
             return;
         }
-        console.log(message_content[1]);
         const request_number = message_content[1];
         // Check if integer
         if (!(request_number+"").match(/^\d+$/) ) {
@@ -106,6 +105,38 @@ module.exports = {
         //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
         msg.channel.send('https://marble.cards/card/'+request_number)
         return; 
+    },
+
+    // command_search
+    command_search: async function(msg,message_channel,message_content) {
+        let request_cards = [];
+        let request_phrase = message_content[1];
+        let request_reply = await functions.functions_request_market(msg,message_channel,request_phrase);
+        if(request_reply){
+            request_reply.cards.forEach(function(item){
+                request_cards.push(item);
+            });
+            let request_reply_total_count = request_reply.paging.total_count;
+            let request_paging = 1;
+            if(request_reply.paging.max_page > 1){
+                while (request_paging < request_reply.paging.max_page) {
+                    request_paging++;
+                    let request_reply = await functions.functions_request_market(msg,message_channel,request_phrase, request_paging);
+                    request_reply.cards.forEach(function(item){
+                        request_cards.push(item);
+                    });
+                }
+            }
+            if(request_reply_total_count == 0){
+                msg.channel.send(config.messages.no_search_result);
+            }else{
+                let random_number = Math.floor(Math.random() * (request_cards.length - 1 + 1) + 1);
+                let reply_card = request_cards[random_number].nft_id;
+                msg.channel.send('https://marble.cards/card/'+reply_card)
+            }
+            return;
+        }
+        return;
     },
 
     // Commands
@@ -134,6 +165,10 @@ module.exports = {
                 return;
             case "card":
                 this.command_card(msg,message_channel,message_content);
+                return;
+            case "s":
+            case "search":
+                this.command_search(msg,message_channel,message_content);
                 return;
             default:
                 functions.function_reply(msg,'normal',message_channel,config.messages.not_valid);

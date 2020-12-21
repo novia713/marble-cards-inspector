@@ -44,11 +44,16 @@ module.exports = {
     },
 
     // Request market api
-    functions_request_market: async function(msg,message_channel){
+    functions_request_market: async function(msg,message_channel,phrase = false, page = 1){
+        let requestHeaders = {ascending: false};
+        if(phrase){
+            requestHeaders.search = {title: phrase};
+            requestHeaders.page = page;
+            requestHeaders.limit = 16;
+        }
         try {
-            let request_reply = await axios.post('https://ws.marble.cards/task/card_index/get_cards_task', {
-                ascending: false
-            });
+            // normal to get latest card it
+            let request_reply = await axios.post('https://ws.marble.cards/task/card_index/get_cards_task', requestHeaders);
             return request_reply.data;
         } catch (error) {
             if(error.response.status == 500){

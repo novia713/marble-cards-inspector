@@ -34,6 +34,7 @@ module.exports = {
         card_number_not_valid: "the requested card id is not valid.",
         card_number_to_low: "the requested card number cannot be smaller than the number 1.",
         card_number_to_high: "the requested card number cannot be bigger than the number",
-        card_number_to_high_2: "."
+        card_number_to_high_2: ".",
+        no_search_result: "Unfortunately there are no results for this search term."
     }
 };
