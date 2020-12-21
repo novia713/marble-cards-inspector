@@ -128,11 +128,13 @@ module.exports = {
                 }
             }
             if(request_reply_total_count == 0){
-                msg.channel.send(config.messages.no_search_result);
+                functions.function_reply(msg,'normal',message_channel,config.messages.no_search_result);
+                return;
             }else{
                 let random_number = Math.floor(Math.random() * (request_cards.length - 1 + 1) + 1);
                 let reply_card = request_cards[random_number].nft_id;
                 msg.channel.send('https://marble.cards/card/'+reply_card)
+                return;
             }
             return;
         }
