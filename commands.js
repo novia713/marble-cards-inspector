@@ -78,35 +78,35 @@ module.exports = {
         return; 
     },
 
-        // command_card
-        command_card: async function(msg,message_channel,message_content) {
-            const request_reply = await functions.functions_request_market(msg,message_channel);
-            let max_number = 0;
-            if(request_reply){
-                max_number = request_reply.cards[0].nft_id;
-            }else{
-                return;
-            }
-            console.log(message_content[1]);
-            const request_number = message_content[1];
-            // Check if integer
-            if (!(request_number+"").match(/^\d+$/) ) {
-                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_not_valid);
-                return;
-            }
-            // Check smaller as min and bigger as max card number
-            if(request_number < 1){
-                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_low);
-                return;
-            }
-            if(request_number > max_number){
-                functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_high+ ' ' + max_number + config.messages.card_number_to_high_2);
-                return;
-            }
-            //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
-            msg.channel.send('https://marble.cards/card/'+request_number)
-            return; 
-        },
+    // command_card
+    command_card: async function(msg,message_channel,message_content) {
+        const request_reply = await functions.functions_request_market(msg,message_channel);
+        let max_number = 0;
+        if(request_reply){
+            max_number = request_reply.cards[0].nft_id;
+        }else{
+            return;
+        }
+        console.log(message_content[1]);
+        const request_number = message_content[1];
+        // Check if integer
+        if (!(request_number+"").match(/^\d+$/) ) {
+            functions.function_reply(msg,'normal',message_channel,config.messages.card_number_not_valid);
+            return;
+        }
+        // Check smaller as min and bigger as max card number
+        if(request_number < 1){
+            functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_low);
+            return;
+        }
+        if(request_number > max_number){
+            functions.function_reply(msg,'normal',message_channel,config.messages.card_number_to_high+ ' ' + max_number + config.messages.card_number_to_high_2);
+            return;
+        }
+        //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
+        msg.channel.send('https://marble.cards/card/'+request_number)
+        return; 
+    },
 
     // Commands
     fire_command: async function(msg,message_content,message_channel){
