@@ -131,7 +131,7 @@ module.exports = {
                 functions.function_reply(msg,'normal',message_channel,config.messages.no_search_result);
                 return;
             }else{
-                let random_number = 1;
+                let random_number = 0;
                 if(request_reply_total_count > 1){
                     random_number = Math.floor(Math.random() * request_cards.length) + 1;
                 }
