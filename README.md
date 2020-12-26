@@ -9,7 +9,7 @@ This Discord bot can be used to check URLs for MarbleCards (https://marble.cards
 4. `npm start`.
 
 ## Commands
-- check <url> # Check an URL for MarbleCards.
+- .check <url> # Check an URL for MarbleCards.
 - .wiki # MarbleCards Wiki.
 - .random # Post a random MarbleCard.
 - .card <number># Display MarbleCard by number.
