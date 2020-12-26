@@ -1,5 +1,5 @@
 # MarbleCards Inspector
-This Discord bot can be used to check URLs for MarbleCards (https://marble.cards) to see if they can still be created or already exist.
+MarbleCards (https://marble.cards) Discord Bot.
 
 ## Install & run
 1. Clone this repository.
