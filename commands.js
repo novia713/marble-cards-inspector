@@ -7,6 +7,16 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 
+	rand_slug () = function {
+		/**
+		*
+		* Generates a GET slug like "?23" which forces reload of the card (for remarbles),
+		* useful for appending it to normal marble cards URLs in order to force the reload
+		*/
+
+		return Math.floor((Math.random() * 100) + 1);
+	}
+
     // command_help
     command_help: async function(msg,message_channel) {
         let valid_commands = "";
@@ -37,7 +47,7 @@ module.exports = {
                 if(not_valid_message == 'ALREADY_CREATED'){
                     let card_url = '';
                     if(request_reply.result.additional_data.nft_id){
-                        card_url =  ' -> https://marble.cards/card/'+request_reply.result.additional_data.nft_id;
+                        card_url =  ' -> https://marble.cards/card/'+request_reply.result.additional_data.nft_id + '?' + rand_slug;
                     }
                     result_message = config.messages.marbled_url + ' `' + message_content[1] + '` ' + config.messages.marbled_url_2 + card_url;
                 }
@@ -71,7 +81,7 @@ module.exports = {
                 if(request_reply.cards[0].nft_id){
                     let random_card_number = Math.floor(Math.random() * (request_reply.cards[0].nft_id - 1 + 1) + 1);
                     //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+random_card_number);
-                    msg.channel.send('https://marble.cards/card/'+random_card_number)
+                    msg.channel.send('https://marble.cards/card/'+ random_card_number + '?' + rand_slug)
                 }
             }
         }
@@ -103,7 +113,7 @@ module.exports = {
             return;
         }
         //functions.function_reply(msg,'normal',message_channel,'https://marble.cards/card/'+request_number);
-        msg.channel.send('https://marble.cards/card/'+request_number)
+        msg.channel.send('https://marble.cards/card/'+request_number + '?' + rand_slug)
         return; 
     },
 
@@ -136,7 +146,7 @@ module.exports = {
                     random_number = Math.floor(Math.random() * request_cards.length) + 1;
                 }
                 let reply_card = request_cards[random_number].nft_id;
-                msg.channel.send('https://marble.cards/card/'+reply_card)
+                msg.channel.send('https://marble.cards/card/'+reply_card + '?' + rand_slug)
                 return;
             }
             return;
