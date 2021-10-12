@@ -9,12 +9,13 @@ MarbleCards (https://marble.cards) Discord Bot.
 4. `npm start`.
 
 ## Commands
-- .check <url> # Check an URL for MarbleCards.
-- .wiki # MarbleCards Wiki.
-- .random # Post a random MarbleCard.
-- .card <number># Display MarbleCard by number.
-- .search <phrase># Find a random MarbleCard that has the search phrase in the title.
-- .donate # Bot creator donation info.
+- `.check` <url> # Check an URL for MarbleCards.
+- `.w` or `wiki` # MarbleCards Wiki.
+- `.r` or `.random` # Post a random MarbleCard.
+- `.c` <number># Display MarbleCard by number.
+- `.s` <phrase># Find a random MarbleCard that has the search phrase in the title.
+- `.d` or donate # Bot creator donation info.
+- `.h` or `.help` # Display bot help
 
 ### HOW TO CREATE A DSCORD BOT ACCOUNT/TOKEN
 
